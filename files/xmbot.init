@@ -1,0 +1,13 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2010 Jo-Philipp Wich
+
+START=55
+STOP=10
+
+start() {
+	xmbot >/dev/null 2>&1 &
+}
+
+stop() {
+	killall xmbot
+}

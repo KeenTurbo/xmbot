@@ -1,0 +1,9 @@
+account=
+password=
+god=
+
+#cmd行后面全部必须为指令对
+command
+#目前最多支持50条指令对
+wifi up=control_wireless.sh up
+wifi down=control_wireless.sh down

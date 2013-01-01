@@ -74,10 +74,15 @@ int opt_use_tls=1;
 int opt_use_sasl=1;
 int opt_use_plain=0;
 
+FILE *log;
+
 void putlog(const char *func,int line,const char *detail){
 #ifdef DEBUG
     printf("(%3d)%s:%s\n",line,func,detail);
 #endif
+    log=fopen("/tmp/xmbot.log","a");
+    fprintf(log,"(%3d)%s:%s\n",line,func,detail);
+    fclose(log);
 }
 
 int load_config(){
@@ -132,7 +137,10 @@ int load_config(){
 
 void j_error (char *msg)
 {
+    log=fopen("/tmp/xmbot.log","a");
     fprintf (stderr, "xmbot: %s\n", msg);
+    fprintf(log,"xmbot: %s\n",msg);
+    fclose(log);
     exit (2);
 }
 
@@ -216,7 +224,6 @@ int on_stream (struct session *sess, int type, iks *node)
                 ikspak *pak;
 
                 pak = iks_packet (node);
-                //printf("something: %s\n",pak->x->s);
                 iks_filter_packet (my_filter, pak);
                 if (sess->job_done == 1){
                     putlog(__FUNCTION__,__LINE__,"COME OUT IKS_HOOK");    
@@ -326,6 +333,7 @@ int main (int argc, char *argv[])
     int set_roster=0;
 
     if(0!=load_config()) return -1;
+
 
     struct session sess;
     sess.counter=10000;

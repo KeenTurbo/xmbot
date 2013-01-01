@@ -27,8 +27,8 @@ define Package/xmbot/description
  xmbot is a xmpp bot for openwrt
 endef
 
-TARGET_CFLAGS += $(TLS_CFLAGS)
-TARGET_LDFLAGS += -Wl,-rpath-link=$(STAGING_DIR)/usr/lib
+TARGET_CFLAGS += -I$(STAGING_DIR)/usr/include
+TARGET_LDFLAGS += -liksemel -L$(STAGING_DIR)/usr/lib
 
 define Build/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
@@ -46,7 +46,7 @@ define Package/xmbot/install
 	$(INSTALL_CONF) ./files/xmbotrc $(1)/etc/xmbotrc
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/xmbot $(1)/usr/sbin/xmbot
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/control_wireless.sh $(1)/usr/sbin/control_wireless.sh
+	$(INSTALL_BIN) ./files/control_wireless.sh $(1)/usr/sbin/control_wireless.sh
 endef
 
 $(eval $(call BuildPackage,xmbot))

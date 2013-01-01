@@ -1,6 +1,5 @@
-CFLAGS = -O2 -g -I/home/wgjtyu/others/openwrt-git/backfire/staging_dir/target-mips_uClibc-0.9.30.1/usr/include/
+CFLAGS = -O2 -g
 CFLAGS += -Wall --std=gnu99
-LDFLAGS = -liksemel -L /home/wgjtyu/others/openwrt-git/backfire/staging_dir/target-mips_uClibc-0.9.30.1/usr/lib
 
 all: xmbot
 
